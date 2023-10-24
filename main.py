@@ -18,13 +18,15 @@ logger = logging.getLogger(__name__)
 
 class CTransformers:
     MODEL_PATH = ".model/TheBloke/mpt-7b-chat-GGML/mpt-7b-chat.ggmlv0.q4_0.bin"
+    MODEL_TYPE = "mpt"
 
     def __init__(self):
         # Load (and cache) the model from the pretrained model.
         self.llm = AutoModelForCausalLM.from_pretrained(
             model_path_or_repo_id=self.MODEL_PATH,
-            model_type="mpt",
+            model_type=self.MODEL_TYPE,
         )
+        logger.info("Loaded model.") 
 
     def Complete(
         self, request: CompletionRequest, context: GrpcContext
