@@ -14,11 +14,17 @@ from leapfrogai import (
     serve,
 )
 
+logger = logging.getLogger(__name__)
 
 class CTransformers:
-    llm = AutoModelForCausalLM.from_pretrained(
-        "Sidharthkr/MPT-7b-chat-GGML", model_type="mpt"
-    )
+    MODEL_PATH = ".model/TheBloke/mpt-7b-chat-GGML/mpt-7b-chat.ggmlv0.q4_0.bin"
+
+    def __init__(self):
+        # Load (and cache) the model from the pretrained model.
+        self.llm = AutoModelForCausalLM.from_pretrained(
+            model_path_or_repo_id=self.MODEL_PATH,
+            model_type="mpt",
+        )
 
     def Complete(
         self, request: CompletionRequest, context: GrpcContext
@@ -30,17 +36,17 @@ class CTransformers:
             stop=["<|im_end|>"],
         )
         completion = CompletionChoice(text=text, index=0)
-        print("COMPLETE:\n---")
-        print(request.prompt)
-        print(completion)
-        print("COMPLETE END")
+        logger.info("COMPLETE:\n---")
+        logger.info(request.prompt)
+        logger.info(completion)
+        logger.info("COMPLETE END")
         return CompletionResponse(choices=[completion])
 
     def CompleteStream(
         self, request: CompletionRequest, context: GrpcContext
     ) -> Generator[CompletionResponse, Any, Any]:
-        print("COMPLETESTREAM:\n---")
-        print(request.prompt, end="", flush=True)
+        logger.info("COMPLETESTREAM:\n---")
+        logger.info(request.prompt)
         for text in self.llm(
             request.prompt,
             max_new_tokens=request.max_new_tokens,
@@ -48,10 +54,10 @@ class CTransformers:
             stream=True,
             stop=["<|im_end|>"],
         ):
-            print(text)
+            logger.info(text)
             completion = CompletionChoice(text=text, index=0)
             yield CompletionResponse(choices=[completion])
-        print("COMPLETESTREAM END")
+        logger.info("COMPLETESTREAM END")
 
 
 if __name__ == "__main__":
