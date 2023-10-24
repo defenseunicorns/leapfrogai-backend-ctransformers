@@ -3,7 +3,7 @@ name = "leapfrogai-backend-ctransformers"
 version = "0.1.0"
 dependencies = [
     "leapfrogai >= 0.3.3",
-    "ctransformers",
+    "ctransformers >= 0.2.27",
 ]
 requires-python = ">=3.11.4"
 
