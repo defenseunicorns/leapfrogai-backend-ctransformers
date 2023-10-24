@@ -3,11 +3,7 @@ name = "leapfrogai-backend-ctransformers"
 version = "0.1.0"
 dependencies = [
     "leapfrogai >= 0.3.3",
-    "InstructorEmbedding >= 1.0.1",
-    "torch",
-    "numpy >= 1.26.1",
-    "tqdm >= 4.66.1",
-    "sentence_transformers >= 2.2.2",
+    "ctransformers >= 0.2.27",
 ]
 requires-python = ">=3.11.4"
 
