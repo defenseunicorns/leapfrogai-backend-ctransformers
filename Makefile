@@ -25,7 +25,7 @@ dev:
 	python main.py
 
 make docker-build:
-	docker build -t leapfrogai/ctransformers:${VERSION} .
+	docker build -t ghcr.io/defenseunicorns/leapfrogai/ctransformers:${VERSION} .
 
 make docker-push:
 	docker push ghcr.io/defenseunicorns/leapfrogai/ctransformers:${VERSION}

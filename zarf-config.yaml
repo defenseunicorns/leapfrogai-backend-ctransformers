@@ -1,7 +1,7 @@
 package:
   create:
     set:
-      image_repository: "defenseunicorns/leapfrogai/ctransformers"
+      image_repository: "ghcr.io/defenseunicorns/leapfrogai/ctransformers"
       version: 0.0.1
       name: ctransformers
     max_package_size: "1000000000"
@@ -14,5 +14,5 @@ package:
       requests_memory: 4Gi
       requests_gpu: 0
       name: ctransformers
-      image_repository: "defenseunicorns/leapfrogai/ctransformers"
+      image_repository: "ghcr.io/defenseunicorns/leapfrogai/ctransformers"
       version: 0.0.1
