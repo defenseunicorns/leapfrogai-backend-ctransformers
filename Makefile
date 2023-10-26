@@ -25,8 +25,7 @@ dev:
 	python main.py
 
 make docker-build:
-	git clone https://huggingface.co/Sidharthkr/MPT-7b-chat-GGML model & \
-	docker build -t ghcr.io/defenseunicorns/leapfrogai-backend-ctransformers:${VERSION} .
+	docker build -t leapfrogai/ctransformers:${VERSION} .
 
 make docker-push:
-	docker push ghcr.io/defenseunicorns/leapfrogai-backend-ctransformers:${VERSION}
+	docker push ghcr.io/defenseunicorns/leapfrogai/ctransformers:${VERSION}
