@@ -8,6 +8,8 @@ A LeapfrogAI API-compatible CTransformers wrapper for quantized model inferencin
 
 ### Run Locally
 
+For cloning a model locally and running the development backend.
+
 #### Clone Model Locally
 
 ```bash
@@ -29,6 +31,8 @@ python main.py
 
 #### Local Image Build and Run
 
+For local image building and running.
+
 ```bash
 docker build -t ghcr.io/defenseunicorns/leapfrogai/ctransformers:latest .
 docker run -p 50051:50051 ghcr.io/defenseunicorns/leapfrogai/ctransformers:latest
@@ -36,14 +40,17 @@ docker run -p 50051:50051 ghcr.io/defenseunicorns/leapfrogai/ctransformers:lates
 
 #### Remote Image Build and Run
 
+For pulling a tagged image from the main release repository.
+
 Where `<IMAGE_TAG>` is the released packages found [here](https://github.com/orgs/defenseunicorns/packages/container/package/leapfrogai%2Fctransformers).
 
 ```bash
-docker build -t ghcr.io/defenseunicorns/leapfrogai/ctransformers:<IMAGE_TAG> .
 docker run -p 50051:50051 ghcr.io/defenseunicorns/leapfrogai/ctransformers:<IMAGE_TAG>
 ```
 
 ### Docker Build and Push
+
+This is for pushing a new image tag to the repository. Beforehand, ensure you run a `git tag <IMAGE_TAG>`.
 
 ```bash
 make docker-build
