@@ -17,7 +17,7 @@ from leapfrogai import (
 logger = logging.getLogger(__name__)
 
 class CTransformers:
-    MODEL_PATH = ".model/TheBloke/mpt-7b-chat-GGML/mpt-7b-chat.ggmlv0.q4_0.bin"
+    MODEL_PATH = ".model/mpt-7b-chat.ggmlv0.q4_0.bin"
     MODEL_TYPE = "mpt"
 
     def __init__(self):
