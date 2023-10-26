@@ -7,8 +7,8 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt --user
 RUN pip install wget --user
 RUN mkdir -p .model/ && \
-    wget https://huggingface.co/TheBloke/mpt-7b-chat-GGML/resolve/main/mpt-7b-chat.ggmlv0.q4_0.bin && \
-    mv mpt-7b-chat.ggmlv0.q4_0.bin .model/mpt-7b-chat.ggmlv0.q4_0.bin
+    wget https://huggingface.co/TheBloke/Mistral-7B-v0.1-GGUF/resolve/main/mistral-7b-v0.1.Q2_K.gguf && \
+    mv mistral-7b-v0.1.Q2_K.gguf .model/mistral-7b-v0.1.Q2_K.gguf
 
 FROM ghcr.io/defenseunicorns/leapfrogai/python:3.11-amd64
 
