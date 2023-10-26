@@ -24,6 +24,6 @@ python main.py
 ### Docker
 
 ```
-docker build -t leapfrog-backend-ctransformers:latest .
-docker run -p 50051:50051 leapfrog-backend-ctransformers:latest
+docker build -t defenseunicorns/leapfrogai/ctransformers:0.0.1 .
+docker run -p 50051:50051 defenseunicorns/leapfrogai/ctransformers:0.0.1
 ```

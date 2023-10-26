@@ -1,7 +1,7 @@
 kind: ZarfPackageConfig
 metadata:
   name: ctransformers
-  version: 0.3.2 
+  version: 0.0.1
   description: >
     ctransformers model
 
@@ -16,5 +16,5 @@ components:
     required: true
     import:
       name: model
-      url: oci://ghcr.io/defenseunicorns/packages/leapfrogai-model:0.3.2-skeleton
+      url: oci://ghcr.io/defenseunicorns/leapfrogai/leapfrogai-model:0.3.3-skeleton
 

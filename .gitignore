@@ -1,3 +1,7 @@
+# Zarf packages
+*.tar*
+zarf-sbom/
+
 # Models Directory
 .models/*
 .model/*
