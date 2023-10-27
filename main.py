@@ -17,7 +17,7 @@ from leapfrogai import (
 logger = logging.getLogger(__name__)
 
 class CTransformers:
-    MODEL_PATH = ".model/dolphin-2.1-mistral-7b.Q2_K.gguf"
+    MODEL_PATH = ".model/dolphin-2.1-mistral-7b.Q4_K_M.gguf"
     MODEL_TYPE = "mistral"
 
     def __init__(self):

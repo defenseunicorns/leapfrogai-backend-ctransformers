@@ -9,8 +9,8 @@ RUN pip install wget --user
 
 USER root
 RUN mkdir -p .model/ && \
-    wget https://huggingface.co/TheBloke/Mistral-7B-v0.1-GGUF/resolve/main/dolphin-2.1-mistral-7b.Q2_K.gguf && \
-    mv dolphin-2.1-mistral-7b.Q2_K.gguf .model/dolphin-2.1-mistral-7b.Q2_K.gguf
+    wget https://huggingface.co/TheBloke/dolphin-2.1-mistral-7B-GGUF/resolve/main/dolphin-2.1-mistral-7b.Q4_K_M.gguf && \
+    mv dolphin-2.1-mistral-7b.Q4_K_M.gguf .model/dolphin-2.1-mistral-7b.Q4_K_M.gguf
 
 FROM ghcr.io/defenseunicorns/leapfrogai/python:3.11-amd64
 
