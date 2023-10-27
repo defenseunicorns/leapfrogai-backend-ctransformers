@@ -15,8 +15,8 @@ For cloning a model locally and running the development backend.
 ```bash
 # Clone Model
 mkdir .model/
-wget https://huggingface.co/TheBloke/Mistral-7B-v0.1-GGUF/resolve/main/mistral-7b-v0.1.Q2_K.gguf
-mv mistral-7b-v0.1.Q2_K.gguf .model/mistral-7b-v0.1.Q2_K.gguf
+wget https://huggingface.co/TheBloke/Mistral-7B-v0.1-GGUF/resolve/main/dolphin-2.1-mistral-7b.Q2_K.gguf
+mv dolphin-2.1-mistral-7b.Q2_K.gguf .model/dolphin-2.1-mistral-7b.Q2_K.gguf
 
 # Setup Python Virtual Environment
 python -m venv .venv
