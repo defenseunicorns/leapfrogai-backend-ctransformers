@@ -17,7 +17,7 @@ from leapfrogai import (
 logger = logging.getLogger(__name__)
 
 class CTransformers:
-    MODEL_PATH = ".model/mistral-7b-v0.1.Q2_K.gguf"
+    MODEL_PATH = ".model/dolphin-2.1-mistral-7b.Q2_K.gguf"
     MODEL_TYPE = "mistral"
 
     def __init__(self):
@@ -35,8 +35,7 @@ class CTransformers:
             request.prompt,
             max_new_tokens=request.max_new_tokens,
             temperature=request.temperature,
-            #stop=["<|im_end|>"],
-            stop=["."],
+            stop=["<|im_end|>"],
         )
         completion = CompletionChoice(text=text, index=0)
         logger.info("COMPLETE:\n---")
@@ -55,7 +54,7 @@ class CTransformers:
             max_new_tokens=request.max_new_tokens,
             temperature=request.temperature,
             stream=True,
-            stop=["."],
+            stop=["<|im_end|>"],
         ):
             logger.info(text)
             completion = CompletionChoice(text=text, index=0)
