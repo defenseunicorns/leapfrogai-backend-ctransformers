@@ -17,8 +17,8 @@ from leapfrogai import (
 logger = logging.getLogger(__name__)
 
 class CTransformers:
-    MODEL_PATH = ".model/mpt-7b-chat.ggmlv0.q4_0.bin"
-    MODEL_TYPE = "mpt"
+    MODEL_PATH = ".model/dolphin-2.1-mistral-7b.Q4_K_M.gguf"
+    MODEL_TYPE = "mistral"
 
     def __init__(self):
         # Load (and cache) the model from the pretrained model.

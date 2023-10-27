@@ -10,20 +10,20 @@ A LeapfrogAI API-compatible CTransformers wrapper for quantized model inferencin
 
 For cloning a model locally and running the development backend.
 
-#### Clone Model Locally
-
-```bash
-mkdir .model/
-wget https://huggingface.co/TheBloke/mpt-7b-chat-GGML/resolve/main/mpt-7b-chat.ggmlv0.q4_0.bin
-mv mpt-7b-chat.ggmlv0.q4_0.bin .model/mpt-7b-chat.ggmlv0.q4_0.bin
-```
-
 #### Run Python Backend Locally
 
 ```bash
+# Clone Model
+mkdir .model/
+wget https://huggingface.co/TheBloke/dolphin-2.1-mistral-7B-GGUF/resolve/main/dolphin-2.1-mistral-7b.Q4_K_M.gguf
+mv dolphin-2.1-mistral-7b.Q4_K_M.gguf .model/dolphin-2.1-mistral-7b.Q4_K_M.gguf
+
+# Setup Python Virtual Environment
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements-dev.txt
+
+# Start Model Backend
 python main.py
 ```
 
