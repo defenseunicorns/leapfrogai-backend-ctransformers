@@ -15,8 +15,8 @@ For cloning a model locally and running the development backend.
 ```bash
 # Clone Model
 mkdir .model/
-wget https://huggingface.co/TheBloke/dolphin-2.1-mistral-7B-GGUF/resolve/main/dolphin-2.1-mistral-7b.Q4_K_M.gguf
-mv dolphin-2.1-mistral-7b.Q4_K_M.gguf .model/dolphin-2.1-mistral-7b.Q4_K_M.gguf
+wget https://huggingface.co/TheBloke/Synthia-7B-v2.0-GGUF/resolve/main/synthia-7b-v2.0.Q4_K_M.gguf
+mv synthia-7b-v2.0.Q4_K_M.gguf .model/synthia-7b-v2.0.Q4_K_M.gguf
 
 # Setup Python Virtual Environment
 python -m venv .venv
@@ -45,6 +45,7 @@ For pulling a tagged image from the main release repository.
 Where `<IMAGE_TAG>` is the released packages found [here](https://github.com/orgs/defenseunicorns/packages/container/package/leapfrogai%2Fctransformers).
 
 ```bash
+docker build -t ghcr.io/defenseunicorns/leapfrogai/ctransformers:<IMAGE_TAG> .
 docker run -p 50051:50051 ghcr.io/defenseunicorns/leapfrogai/ctransformers:<IMAGE_TAG>
 ```
 

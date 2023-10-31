@@ -17,14 +17,13 @@ from leapfrogai import (
 logger = logging.getLogger(__name__)
 
 class CTransformers:
-    MODEL_PATH = "synthia-7b-v1.3.Q4_K_M.gguf"
+    MODEL_PATH = ".model/synthia-7b-v2.0.Q4_K_M.gguf"
     MODEL_TYPE = "mistral"
 
     def __init__(self):
         # Load (and cache) the model from the pretrained model.
         self.llm = AutoModelForCausalLM.from_pretrained(
-            "TheBloke/Synthia-7B-v1.3-GGUF",
-            model_file=self.MODEL_PATH,
+            model_path_or_repo_id=self.MODEL_PATH,
             model_type=self.MODEL_TYPE,
             context_length=8192,
         )
@@ -38,7 +37,7 @@ class CTransformers:
             max_new_tokens=request.max_new_tokens,
             temperature=request.temperature,
             stop=["</s>"],
-            batch=512
+            batch_size=512
         )
         completion = CompletionChoice(text=text, index=0)
         logger.info("COMPLETE:\n---")
