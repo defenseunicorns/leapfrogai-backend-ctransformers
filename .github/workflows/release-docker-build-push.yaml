@@ -7,16 +7,18 @@ on:
       - v*
   workflow_dispatch:
 
-env:
-  IMAGE_NAME: leapfrogai/ctransformers
-  VERSION: $GITHUB_REF_NAME
-
 jobs:
   push:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
+      - name: Get version
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+      - name: Output Version
+        run: |
+          echo $VERSION
+          echo ${{ env.VERSION }}
 
       - name: Build image
         run: make docker-build VERSION=$VERSION
