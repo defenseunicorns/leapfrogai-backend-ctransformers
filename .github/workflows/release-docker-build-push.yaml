@@ -14,11 +14,12 @@ jobs:
       - uses: actions/checkout@v4
       - name: Get version
         id: get_version
-        run: echo "VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-      - name: Output Version
         run: |
-          echo $VERSION
-          echo ${{ env.VERSION }}
+          # This strips the git ref prefix from the version.
+          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+          # This strips the "v" prefix from the tag name.
+          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+          echo $VERSION     
 
       - name: Build image
         run: make docker-build VERSION=$VERSION
