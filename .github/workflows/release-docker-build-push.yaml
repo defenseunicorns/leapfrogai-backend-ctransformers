@@ -11,20 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Get version
-        id: get_version
-        run: |
-          # This strips the git ref prefix from the version.
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-          # This strips the "v" prefix from the tag name.
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-      - name: Output Version
-        run: |
-          echo "Version: $VERSION"
 
       - name: Disable shallow clone
         run: git fetch --unshallow
-        
+
       - name: Set VERSION
         run: echo "VERSION=$(git describe --abbrev=0 --tags)" >> $GITHUB_ENV
 
