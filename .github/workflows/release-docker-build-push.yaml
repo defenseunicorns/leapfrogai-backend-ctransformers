@@ -1,4 +1,3 @@
-
 name: Release Docker Image Build/Push
 
 on:
@@ -22,6 +21,12 @@ jobs:
       - name: Output Version
         run: |
           echo "Version: $VERSION"
+
+      - name: Disable shallow clone
+        run: git fetch --unshallow
+        
+      - name: Set VERSION
+        run: echo "VERSION=$(git describe --abbrev=0 --tags)" >> $GITHUB_ENV
 
       - name: Build image
         run: make docker-build VERSION=$VERSION
