@@ -1,4 +1,3 @@
-
 name: Dev Docker Image Build/Push
 
 on:
@@ -8,7 +7,6 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE_NAME: leapfrogai/ctransformers
   VERSION: dev
 
 jobs:
