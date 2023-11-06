@@ -1,5 +1,5 @@
 # Zarf packages
-*.tar*
+zarf*.tar.zst
 zarf-sbom/
 
 # Models Directory
