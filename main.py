@@ -75,14 +75,14 @@ class CTransformers:
         prompt = chat_items_to_prompt(request.chat_items)
 
         # create text streamer and validate parameters
-        max_new_tokens = 1536 if request.max_new_tokens == 0 else request.max_new_tokens
+        max_tokens = 1536 if request.max_tokens == 0 else request.max_tokens
         temperature = 0.1 if request.temperature == 0.0 else request.temperature
         top_p = 1.0 if request.top_p == 0.0 else request.top_p
         top_k = 0 if request.top_k == 0.0 else int(request.top_k)
 
         for text in self.llm(
             prompt=prompt,
-            max_new_tokens=max_new_tokens,
+            max_tokens=max_tokens,
             temperature=temperature,
             top_p=top_p,
             top_k=top_k,
@@ -127,7 +127,7 @@ class CTransformers:
     ) -> CompletionResponse:
         text = self.llm(
             request.prompt,
-            max_new_tokens=request.max_new_tokens,
+            max_tokens=request.max_tokens,
             temperature=request.temperature,
             stop=["</s>"],
             batch_size=512
@@ -146,7 +146,7 @@ class CTransformers:
         logger.info(request.prompt)
         for text in self.llm(
             request.prompt,
-            max_new_tokens=request.max_new_tokens,
+            max_tokens=request.max_tokens,
             temperature=request.temperature,
             stream=True,
             stop=["</s>"],

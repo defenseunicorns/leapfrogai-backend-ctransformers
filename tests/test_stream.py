@@ -27,7 +27,7 @@ def run():
         # Create a request
         request = leapfrogai.CompletionRequest(
             prompt=system_prompt,
-            max_new_tokens=512,
+            max_tokens=512,
             temperature=1.0,
         )
 
