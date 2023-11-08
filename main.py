@@ -3,11 +3,16 @@ import logging
 from typing import Any, Generator
 
 from ctransformers import AutoModelForCausalLM
-
 from google.protobuf.internal.containers import RepeatedCompositeFieldContainer
 
+# chat
 # completion
 from leapfrogai import (
+    ChatCompletionChoice,
+    ChatCompletionRequest,
+    ChatCompletionResponse,
+    ChatItem,
+    ChatRole,
     CompletionChoice,
     CompletionFinishReason,
     CompletionRequest,
@@ -15,15 +20,6 @@ from leapfrogai import (
     CompletionUsage,
     GrpcContext,
     serve,
-)
-
-# chat
-from leapfrogai import (
-    ChatCompletionRequest,
-    ChatCompletionChoice,
-    ChatItem,
-    ChatRole,
-    ChatCompletionResponse
 )
 
 logger = logging.getLogger(__name__)
@@ -34,6 +30,7 @@ USER_FORMAT = "<|im_start|>user\n{}<|im_end|>\n"
 ASSISTANT_FORMAT = "<|im_start|>assistant\n{}<|im_end|>\n"
 # what gets appended to the end of the prompt to open the assistant's part of the conversation
 RESPONSE_PREFIX = ASSISTANT_FORMAT.split("{}")[0]
+
 
 def chat_items_to_prompt(chat_items: RepeatedCompositeFieldContainer[ChatItem]) -> str:
     """Converts a repeated ChatItem from a ChatCompletionRequest proto into a string
@@ -56,6 +53,7 @@ def chat_items_to_prompt(chat_items: RepeatedCompositeFieldContainer[ChatItem]) 
     prompt += RESPONSE_PREFIX
     return prompt
 
+
 class CTransformers:
     MODEL_PATH = ".model/synthia-7b-v2.0.Q4_K_M.gguf"
     MODEL_TYPE = "mistral"
@@ -75,25 +73,25 @@ class CTransformers:
         prompt = chat_items_to_prompt(request.chat_items)
 
         # create text streamer and validate parameters
-        max_tokens = 1536 if request.max_tokens == 0 else request.max_tokens
+        max_tokens = 1536 if request.max_new_tokens == 0 else request.max_new_tokens
         temperature = 0.1 if request.temperature == 0.0 else request.temperature
         top_p = 1.0 if request.top_p == 0.0 else request.top_p
         top_k = 0 if request.top_k == 0.0 else int(request.top_k)
 
         for text in self.llm(
             prompt=prompt,
-            max_tokens=max_tokens,
+            max_new_tokens=max_tokens,
             temperature=temperature,
             top_p=top_p,
             top_k=top_k,
-            stop=["</s>","<|im_end|>"],
-            stream=True
+            stop=["</s>", "<|im_end|>"],
+            stream=True,
         ):
             print(text)
             yield text
 
-    def ChatComplete(
-            self, request: ChatCompletionRequest, context: GrpcContext
+    async def ChatComplete(
+        self, request: ChatCompletionRequest, context: GrpcContext
     ) -> ChatCompletionResponse:
         logger.info("CHATCOMPLETE:\n---")
         chat_stream = self.chat_stream(request)
@@ -107,8 +105,8 @@ class CTransformers:
         logger.info(choice)
         logger.info("CHATCOMPLETEEND:\n---")
         return ChatCompletionResponse(choices=[choice])
-    
-    def ChatCompleteStream(
+
+    async def ChatCompleteStream(
         self, request: ChatCompletionRequest, context: GrpcContext
     ) -> Generator[ChatCompletionResponse, Any, Any]:
         logger.info("CHATCOMPLETESTREAM:\n---")
@@ -122,15 +120,15 @@ class CTransformers:
 
         logger.info("CHATCOMPLETESTREAMEND:\n---")
 
-    def Complete(
+    async def Complete(
         self, request: CompletionRequest, context: GrpcContext
     ) -> CompletionResponse:
         text = self.llm(
             request.prompt,
-            max_tokens=request.max_tokens,
+            max_new_tokens=request.max_new_tokens,
             temperature=request.temperature,
             stop=["</s>"],
-            batch_size=512
+            batch_size=512,
         )
         completion = CompletionChoice(text=text, index=0)
         logger.info("COMPLETE:\n---")
@@ -139,14 +137,14 @@ class CTransformers:
         logger.info("COMPLETE END")
         return CompletionResponse(choices=[completion])
 
-    def CompleteStream(
+    async def CompleteStream(
         self, request: CompletionRequest, context: GrpcContext
     ) -> Generator[CompletionResponse, Any, Any]:
         logger.info("COMPLETESTREAM:\n---")
         logger.info(request.prompt)
         for text in self.llm(
             request.prompt,
-            max_tokens=request.max_tokens,
+            max_new_tokens=request.max_new_tokens,
             temperature=request.temperature,
             stream=True,
             stop=["</s>"],
