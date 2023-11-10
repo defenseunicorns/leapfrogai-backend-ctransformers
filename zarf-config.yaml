@@ -2,7 +2,7 @@ package:
   create:
     set:
       image_repository: "ghcr.io/defenseunicorns/leapfrogai/ctransformers"
-      image_version: 0.2.0
+      image_version: 0.3.0
       name: ctransformers
     max_package_size: "1000000000"
   deploy:
@@ -15,4 +15,4 @@ package:
       requests_gpu: 0
       name: ctransformers
       image_repository: "ghcr.io/defenseunicorns/leapfrogai/ctransformers"
-      image_version: 0.2.0
+      image_version: 0.3.0
