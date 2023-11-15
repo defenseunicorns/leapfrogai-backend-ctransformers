@@ -6,6 +6,11 @@ create-venv:
 activate-venv:
 	source .venv/bin/activate
 
+fetch-model:
+	mkdir -p .model/
+	wget https://huggingface.co/TheBloke/SynthIA-7B-v2.0-GGUF/resolve/main/synthia-7b-v2.0.Q4_K_M.gguf
+	mv synthia-7b-v2.0.Q4_K_M.gguf .model/synthia-7b-v2.0.Q4_K_M.gguf	
+
 requirements-dev:
 	python -m pip install -r requirements-dev.txt
 
