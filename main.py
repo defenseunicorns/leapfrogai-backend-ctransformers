@@ -1,5 +1,6 @@
 import asyncio
 import logging
+import os
 from typing import Any, Generator
 
 from ctransformers import AutoModelForCausalLM
@@ -14,15 +15,15 @@ from leapfrogai import (
     ChatItem,
     ChatRole,
     CompletionChoice,
-    CompletionFinishReason,
     CompletionRequest,
     CompletionResponse,
-    CompletionUsage,
     GrpcContext,
     serve,
 )
 
 logger = logging.getLogger(__name__)
+
+GPU_ENABLED = False if os.environ.get("GPU_ENABLED", "False").lower() != "true" else True
 
 # Prompt Templates
 SYSTEM_FORMAT = "<|im_start|>system\n{}<|im_end|>\n"
@@ -54,17 +55,31 @@ def chat_items_to_prompt(chat_items: RepeatedCompositeFieldContainer[ChatItem]) 
     return prompt
 
 
+def validate_llm_params(request: ChatCompletionRequest | CompletionRequest):
+    max_tokens = 1536 if request.max_new_tokens == 0 else request.max_new_tokens
+    temperature = 0.1 if request.temperature == 0.0 else request.temperature
+    top_p = 1.0 if request.top_p == 0.0 else request.top_p
+    top_k = 0 if request.top_k == 0.0 else int(request.top_k)
+
+    return max_tokens, temperature, top_p, top_k
+
+
 class CTransformers:
     MODEL_PATH = ".model/synthia-7b-v2.0.Q4_K_M.gguf"
     MODEL_TYPE = "mistral"
 
     def __init__(self):
+        logger.info(f"GPU_ENABLED = {GPU_ENABLED}")
         # Load (and cache) the model from the pretrained model.
-        self.llm = AutoModelForCausalLM.from_pretrained(
-            model_path_or_repo_id=self.MODEL_PATH,
-            model_type=self.MODEL_TYPE,
-            context_length=8192,
-        )
+        try:
+            self.llm = AutoModelForCausalLM.from_pretrained(
+                model_path_or_repo_id=self.MODEL_PATH,
+                model_type=self.MODEL_TYPE,
+                context_length=8192,
+                gpu_layers=99 if GPU_ENABLED == True else 0,
+            )
+        except Exception as e:
+            logger.error(f"A runtime error occurred: {e}")
         logger.info("Loaded model.")
 
     def chat_stream(self, request: ChatCompletionRequest) -> Generator[str, Any, Any]:
@@ -73,10 +88,7 @@ class CTransformers:
         prompt = chat_items_to_prompt(request.chat_items)
 
         # create text streamer and validate parameters
-        max_tokens = 1536 if request.max_new_tokens == 0 else request.max_new_tokens
-        temperature = 0.1 if request.temperature == 0.0 else request.temperature
-        top_p = 1.0 if request.top_p == 0.0 else request.top_p
-        top_k = 0 if request.top_k == 0.0 else int(request.top_k)
+        max_tokens, temperature, top_p, top_k = validate_llm_params(request)
 
         for text in self.llm(
             prompt=prompt,
@@ -87,7 +99,6 @@ class CTransformers:
             stop=["</s>", "<|im_end|>"],
             stream=True,
         ):
-            print(text)
             yield text
 
     async def ChatComplete(
@@ -123,12 +134,16 @@ class CTransformers:
     async def Complete(
         self, request: CompletionRequest, context: GrpcContext
     ) -> CompletionResponse:
+        # validate parameters
+        max_tokens, temperature, top_p, top_k = validate_llm_params(request)
+
         text = self.llm(
             request.prompt,
-            max_new_tokens=request.max_new_tokens,
-            temperature=request.temperature,
-            stop=["</s>"],
-            batch_size=512,
+            max_new_tokens=max_tokens,
+            temperature=temperature,
+            top_p=top_p,
+            top_k=top_k,
+            stop=["</s>", "<|im_end|>"],
         )
         completion = CompletionChoice(text=text, index=0)
         logger.info("COMPLETE:\n---")
@@ -140,14 +155,19 @@ class CTransformers:
     async def CompleteStream(
         self, request: CompletionRequest, context: GrpcContext
     ) -> Generator[CompletionResponse, Any, Any]:
+        # validate parameters
+        max_tokens, temperature, top_p, top_k = validate_llm_params(request)
+
         logger.info("COMPLETESTREAM:\n---")
         logger.info(request.prompt)
         for text in self.llm(
             request.prompt,
-            max_new_tokens=request.max_new_tokens,
-            temperature=request.temperature,
+            max_new_tokens=max_tokens,
+            temperature=temperature,
+            top_p=top_p,
+            top_k=top_k,
+            stop=["</s>", "<|im_end|>"],
             stream=True,
-            stop=["</s>"],
         ):
             logger.info(text)
             completion = CompletionChoice(text=text, index=0)

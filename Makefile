@@ -17,8 +17,14 @@ requirements-dev:
 requirements:
 	pip-sync requirements.txt requirements-dev.txt
 
+requirements-gpu:
+	pip-sync requirements.txt requirements-gpu.txt
+
 build-requirements:
 	pip-compile -o requirements.txt pyproject.toml
+
+build-requirements-gpu:
+	pip-compile --extra gpu -o requirements-gpu.txt pyproject.toml
 
 build-requirements-dev:
 	pip-compile --extra dev -o requirements-dev.txt pyproject.toml

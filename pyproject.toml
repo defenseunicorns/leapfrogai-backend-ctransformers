@@ -9,6 +9,7 @@ requires-python = ">=3.11.4"
 
 [project.optional-dependencies]
 dev = ["pip-tools", "pytest", "black", "isort"]
+gpu = ["nvidia-cublas-cu12", "nvidia-cuda-runtime-cu12"]
 
 [tool.pip-tools]
 generate-hashes = false

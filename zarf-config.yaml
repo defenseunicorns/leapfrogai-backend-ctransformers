@@ -7,6 +7,7 @@ package:
     max_package_size: "1000000000"
   deploy:
     set:
+      gpu_enabled: false
       limits_cpu: 1
       limits_memory: 4Gi
       limits_gpu: 0
