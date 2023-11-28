@@ -1,15 +1,15 @@
 kind: ZarfPackageConfig
 metadata:
-  name: ctransformers
-  version: 0.3.0
+  name: "###ZARF_PKG_TMPL_NAME###"
+  version: "###ZARF_PKG_TMPL_IMAGE_VERSION###"
   description: >
     ctransformers model
 
 constants:
-  - name: VERSION
-    default: ###ZARF_PKG_TMPL_VERSION###
+  - name: IMAGE_VERSION
+    value: "###ZARF_PKG_TMPL_IMAGE_VERSION###"
   - name: NAME
-    default: ###ZARF_PKG_TMPL_NAME###
+    value: "###ZARF_PKG_TMPL_NAME###"
 
 components:
   - name: import-model
