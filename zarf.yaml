@@ -5,6 +5,13 @@ metadata:
   description: >
     ctransformers model
 
+variables:
+  - name: GPU_ENABLED
+    description: Optional GPU usage for inferencing
+    default: false
+    prompt: true
+    sensitive: false
+
 constants:
   - name: IMAGE_VERSION
     value: "###ZARF_PKG_TMPL_IMAGE_VERSION###"
