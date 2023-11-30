@@ -21,6 +21,8 @@ COPY --from=builder /leapfrogai/.model/ /leapfrogai/.model/
 
 COPY main.py .
 
+ENV GPU_ENABLED=true
+
 EXPOSE 50051:50051
 
 ENTRYPOINT ["python3", "main.py"]

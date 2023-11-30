@@ -7,7 +7,7 @@ metadata:
 
 variables:
   - name: GPU_ENABLED
-    description: Optional GPU usage for inferencing
+    description: Optionally turn on GPU inferencing for environments with capable CUDA devices
     default: false
     prompt: true
     sensitive: false
