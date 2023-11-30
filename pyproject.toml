@@ -12,4 +12,4 @@ dev = ["pip-tools", "pytest", "black", "isort"]
 gpu = ["nvidia-cublas-cu12", "nvidia-cuda-runtime-cu12"]
 
 [tool.pip-tools]
-generate-hashes = false
+generate-hashes = true
