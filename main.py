@@ -23,7 +23,9 @@ from leapfrogai import (
 
 logger = logging.getLogger(__name__)
 
-GPU_ENABLED = False if os.environ.get("GPU_ENABLED", "False").lower() != "true" else True
+GPU_ENABLED = (
+    False if os.environ.get("GPU_ENABLED", "False").lower() != "true" else True
+)
 
 # Prompt Templates
 SYSTEM_FORMAT = "<|im_start|>system\n{}<|im_end|>\n"
@@ -175,6 +177,10 @@ class CTransformers:
         logger.info("COMPLETESTREAM END")
 
 
-if __name__ == "__main__":
+async def main():
     logging.basicConfig(level=logging.INFO)
-    asyncio.run(serve(CTransformers()))
+    await serve(CTransformers())
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
