@@ -2,13 +2,13 @@
 name = "leapfrogai-backend-ctransformers"
 version = "0.1.0"
 dependencies = [
-    "leapfrogai >= 0.3.3",
+    "leapfrogai >= 0.4.0",
     "ctransformers >= 0.2.27",
 ]
 requires-python = ">=3.11.4"
 
 [project.optional-dependencies]
-dev = ["pip-tools", "pytest", "black", "isort"]
+dev = ["pip-tools", "pytest", "black", "isort", "nvidia-cublas-cu12", "nvidia-cuda-runtime-cu12"]
 gpu = ["nvidia-cublas-cu12", "nvidia-cuda-runtime-cu12"]
 
 [tool.pip-tools]
