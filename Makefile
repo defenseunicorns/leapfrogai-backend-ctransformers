@@ -30,6 +30,9 @@ test:
 dev:
 	python main.py
 
+make docker-build-arm64:
+	docker build -t ghcr.io/defenseunicorns/leapfrogai/ctransformers:${VERSION}-arm64 . --build-arg ARCH=arm64 --platform=linux/arm64
+
 make docker-build:
 	docker build -t ghcr.io/defenseunicorns/leapfrogai/ctransformers:${VERSION}-${ARCH} . --build-arg ARCH=${ARCH}
 
