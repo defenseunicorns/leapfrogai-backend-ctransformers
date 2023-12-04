@@ -25,4 +25,5 @@ jobs:
 
       - name: Push images
         run: |
+          docker buildx create --name multiarch --driver docker-container --use
           make docker-build-multiarch VERSION=$VERSION
