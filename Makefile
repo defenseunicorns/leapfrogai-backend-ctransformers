@@ -34,7 +34,7 @@ make docker-build-arm64:
 	docker build -t ghcr.io/defenseunicorns/leapfrogai/ctransformers:${VERSION}-arm64 . --build-arg ARCH=arm64 --platform=linux/arm64
 
 make docker-build:
-	docker build -t ghcr.io/defenseunicorns/leapfrogai/ctransformers:${VERSION}-${ARCH} . --build-arg ARCH=${ARCH}
+	docker build -t ghcr.io/defenseunicorns/leapfrogai/ctransformers:${VERSION}-${ARCH} . --build-arg ARCH=${ARCH} --platform=linux/${ARCH}
 
 make docker-build-multiarch:
 	docker buildx build --no-cache --platform=alinux/amd64,linux/arm64 -t ghcr.io/defenseunicorns/leapfrogai/ctransformers:${VERSION} . --push
