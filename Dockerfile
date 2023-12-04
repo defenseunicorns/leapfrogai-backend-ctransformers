@@ -1,4 +1,6 @@
-FROM ghcr.io/defenseunicorns/leapfrogai/python:3.11-dev-amd64 as builder
+ARG ARCH=arm64
+
+FROM ghcr.io/defenseunicorns/leapfrogai/python:3.11-dev-${ARCH} as builder
 
 WORKDIR /leapfrogai
 
@@ -12,7 +14,7 @@ RUN mkdir -p .model/ && \
     wget https://huggingface.co/TheBloke/SynthIA-7B-v2.0-GGUF/resolve/main/synthia-7b-v2.0.Q4_K_M.gguf && \
     mv synthia-7b-v2.0.Q4_K_M.gguf .model/synthia-7b-v2.0.Q4_K_M.gguf
 
-FROM ghcr.io/defenseunicorns/leapfrogai/python:3.11-amd64
+FROM ghcr.io/defenseunicorns/leapfrogai/python:3.11-${ARCH}
 
 WORKDIR /leapfrogai
 

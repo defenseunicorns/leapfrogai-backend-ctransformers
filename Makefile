@@ -1,4 +1,5 @@
 VERSION := $(shell git describe --abbrev=0 --tags)
+ARCH := $(shell uname -m | sed s/aarch64/arm64/ | sed s/x86_64/amd64/)
 
 create-venv:
 	python -m venv .venv
@@ -30,7 +31,7 @@ dev:
 	python main.py
 
 make docker-build:
-	docker build -t ghcr.io/defenseunicorns/leapfrogai/ctransformers:${VERSION} .
+	docker build -t ghcr.io/defenseunicorns/leapfrogai/ctransformers:${VERSION}-${ARCH} . --build-arg ARCH=${ARCH}
 
 make docker-push:
-	docker push ghcr.io/defenseunicorns/leapfrogai/ctransformers:${VERSION}
+	docker push ghcr.io/defenseunicorns/leapfrogai/ctransformers:${VERSION}-${ARCH}

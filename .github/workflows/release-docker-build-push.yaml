@@ -19,7 +19,9 @@ jobs:
         run: echo "VERSION=$(git describe --abbrev=0 --tags)" >> $GITHUB_ENV
 
       - name: Build image
-        run: make docker-build VERSION=$VERSION
+        run: |
+          make docker-build VERSION=$VERSION ARCH=amd64
+          make docker-build VERSION=$VERSION ARCH=arm64
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
@@ -29,4 +31,6 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Push image
-        run: make docker-push VERSION=$VERSION
+        run:
+          make docker-push VERSION=$VERSION ARCH=amd64
+          make docker-push VERSION=$VERSION ARCH=arm64
