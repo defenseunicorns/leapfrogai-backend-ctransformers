@@ -1,7 +1,6 @@
 name: ARM64 Dev Docker Image Build/Push
 
 on:
-  pull_request:
   push:
     branches:
       - main
