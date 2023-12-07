@@ -8,6 +8,10 @@ certifi==2023.7.22
     # via requests
 charset-normalizer==3.3.1
     # via requests
+click==8.1.7
+    # via leapfrogai
+confz==2.0.1
+    # via leapfrogai
 ctransformers==0.2.27
     # via leapfrogai-backend-ctransformers (pyproject.toml)
 filelock==3.12.4
@@ -27,7 +31,7 @@ huggingface-hub==0.18.0
     # via ctransformers
 idna==3.4
     # via requests
-leapfrogai==0.3.3
+leapfrogai==0.4.0
     # via leapfrogai-backend-ctransformers (pyproject.toml)
 packaging==23.2
     # via huggingface-hub
@@ -38,13 +42,25 @@ protobuf==4.24.4
     #   leapfrogai
 py-cpuinfo==9.0.0
     # via ctransformers
+pydantic==1.10.13
+    # via
+    #   confz
+    #   leapfrogai
+python-dotenv==1.0.0
+    # via confz
 pyyaml==6.0.1
-    # via huggingface-hub
+    # via
+    #   confz
+    #   huggingface-hub
 requests==2.31.0
     # via huggingface-hub
+toml==0.10.2
+    # via confz
 tqdm==4.66.1
     # via huggingface-hub
 typing-extensions==4.8.0
-    # via huggingface-hub
+    # via
+    #   huggingface-hub
+    #   pydantic
 urllib3==2.0.7
     # via requests
