@@ -6,6 +6,7 @@ WORKDIR /leapfrogai
 
 COPY requirements.txt .
 
+RUN pip install ctransformers --no-binary ctransformers
 RUN pip install -r requirements.txt --user
 RUN pip install wget --user
 
