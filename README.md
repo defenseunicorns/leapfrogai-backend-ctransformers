@@ -45,7 +45,7 @@ For local image building and running.
 docker build -t ghcr.io/defenseunicorns/leapfrogai/ctransformers:latest-cpu .
 
 # Run the docker container
-docker run -p 50051:50051 ghcr.io/defenseunicorns/leapfrogai/ctransformers:latest-cpu
+docker run -p 50051:50051 -v ./config.yaml:/leapfrogai/config.yaml ghcr.io/defenseunicorns/leapfrogai/ctransformers:latest-cpu
 ```
 
 For pulling a tagged image from the main release repository.
@@ -54,7 +54,7 @@ Where `<IMAGE_TAG>` is the released packages found [here](https://github.com/org
 
 ```bash
 # Download and run remote image
-docker run -p 50051:50051 ghcr.io/defenseunicorns/leapfrogai/ctransformers:<IMAGE_TAG>
+docker run -p 50051:50051 -v ./config.yaml:/leapfrogai/config.yaml ghcr.io/defenseunicorns/leapfrogai/ctransformers:<IMAGE_TAG>
 ```
 
 ### GPU Inferencing
@@ -93,7 +93,7 @@ For local image building and running.
 docker build -f Dockerfile.gpu -t ghcr.io/defenseunicorns/leapfrogai/ctransformers:latest-gpu .
 
 # Run GPU docker container with GPU resource reservation
-docker run --gpus all -p 50051:50051 ghcr.io/defenseunicorns/leapfrogai/ctransformers:latest-gpu
+docker run --gpus all -p 50051:50051 -v ./config.yaml:/leapfrogai/config.yaml ghcr.io/defenseunicorns/leapfrogai/ctransformers:latest-gpu
 ```
 
 For pulling a tagged image from the main release repository.
@@ -102,5 +102,5 @@ Where `<IMAGE_TAG>` is the released packages found [here](https://github.com/org
 
 ```bash
 # Download and run remote GPU image
-docker run -p 50051:50051 ghcr.io/defenseunicorns/leapfrogai/ctransformers:<IMAGE_TAG>
+docker run -p 50051:50051 -v ./config.yaml:/leapfrogai/config.yaml ghcr.io/defenseunicorns/leapfrogai/ctransformers:<IMAGE_TAG>
 ```
