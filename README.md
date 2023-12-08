@@ -12,9 +12,10 @@ See [instructions](#instructions) to get the backend up and running. Then, use t
 
 The instructions in this section assume the following: 
 
-1. You have properly installed and configured Python 3.11.x, to include its development tools
-2. You have `wget` installed
-3. You have the LeapfrogAI API server running
+1. Properly installed and configured Python 3.11.x, to include its development tools
+2. Installed `wget`
+3. The LeapfrogAI API server is deployed and running
+4. The `config.yaml` is created based on the `config-example.yaml`
 
 ### Local Development
 
