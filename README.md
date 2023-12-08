@@ -4,12 +4,17 @@
 
 A LeapfrogAI API-compatible CTransformers wrapper for quantized model inferencing.
 
+## Usage
+
+See [instructions](#instructions) to get the backend up and running. Then, use the [lLeapfrogAI API server](https://github.com/defenseunicorns/leapfrogai-api) to interact with the backend.
+
 ## Instructions
 
 The instructions in this section assume the following: 
 
 1. You have properly installed and configured Python 3.11.x, to include its development tools
 2. You have `wget` installed
+3. You have the LeapfrogAI API server running
 
 ### Local Development
 
@@ -35,10 +40,10 @@ make dev
 For local image building and running.
 
 ```bash
-# Build image
+# Build the docker image
 docker build -t ghcr.io/defenseunicorns/leapfrogai/ctransformers:latest-cpu .
 
-# Run image
+# Run the docker container
 docker run -p 50051:50051 ghcr.io/defenseunicorns/leapfrogai/ctransformers:latest-cpu
 ```
 
@@ -49,18 +54,6 @@ Where `<IMAGE_TAG>` is the released packages found [here](https://github.com/org
 ```bash
 # Download and run remote image
 docker run -p 50051:50051 ghcr.io/defenseunicorns/leapfrogai/ctransformers:<IMAGE_TAG>
-```
-
-#### Image Build and Push
-
-For pushing a new image tag to the repository. Beforehand, ensure you have create a tagged release in the GitHub repository.
-
-```bash
-# Docker build using tagged version
-make docker-build
-
-# Push up tagged image
-make docker-push
 ```
 
 ### GPU Inferencing
@@ -95,10 +88,10 @@ make dev
 For local image building and running.
 
 ```bash
-# Build GPU image
+# Build GPU docker image
 docker build -f Dockerfile.gpu -t ghcr.io/defenseunicorns/leapfrogai/ctransformers:latest-gpu .
 
-# Run GPU image with GPU resource reservation
+# Run GPU docker container with GPU resource reservation
 docker run --gpus all -p 50051:50051 ghcr.io/defenseunicorns/leapfrogai/ctransformers:latest-gpu
 ```
 

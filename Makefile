@@ -15,7 +15,7 @@ requirements-dev:
 	python -m pip install -r requirements-dev.txt
 
 requirements:
-	python -m pip install -r  requirements.txt
+	python -m pip install -r requirements.txt
 
 requirements-gpu:
 	python -m pip install -r requirements-gpu.txt
