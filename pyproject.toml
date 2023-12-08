@@ -5,9 +5,9 @@ version = "0.4.0"
 description = "ctransformers based backend for LeapfrogAI"
 authors = [{ name = "LeapfrogAI Authors", email = "ai@defenseunicorns.com" }]
 license = { file = "LICENSE" }
-dependencies = ["leapfrogai == 0.4.0", "ctransformers == 0.2.27"]
-requires-python = ">=3.11.4"
 readme = "README.md"
+requires-python = ">=3.11.4"
+dependencies = ["leapfrogai == 0.4.0", "ctransformers == 0.2.27"]
 
 [project.optional-dependencies]
 dev = [
@@ -19,6 +19,9 @@ dev = [
     "nvidia-cuda-runtime-cu12",
 ]
 gpu = ["nvidia-cublas-cu12", "nvidia-cuda-runtime-cu12"]
+
+[tool.pytest.ini_options]
+addopts = ["--import-mode=importlib"]
 
 [tool.pip-tools]
 generate-hashes = true

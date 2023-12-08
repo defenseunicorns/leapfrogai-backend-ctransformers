@@ -1,0 +1,14 @@
+model:
+  source: ".model/model.gguf"
+max_context_length: 16384
+stop_tokens:
+  - "</s>"
+  - "<|im_end|>"
+prompt_format:
+  chat:
+    system: "<|im_start|>system\n{}<|im_end|>\n"
+    assistant: "<|im_start|>assistant\n{}<|im_end|>\n"
+    user: "<|im_start|>user\n{}<|im_end|>\n"
+defaults:
+  top_p: 1.0
+  top_k: 0
