@@ -15,10 +15,10 @@ requirements-dev:
 	python -m pip install -r requirements-dev.txt
 
 requirements:
-	pip-sync requirements.txt requirements-dev.txt
+	python -m pip install -r  requirements.txt
 
 requirements-gpu:
-	pip-sync requirements.txt requirements-gpu.txt
+	python -m pip install -r requirements-gpu.txt
 
 build-requirements:
 	pip-compile -o requirements.txt pyproject.toml
