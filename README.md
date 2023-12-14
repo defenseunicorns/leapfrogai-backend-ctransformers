@@ -6,7 +6,7 @@ A LeapfrogAI API-compatible CTransformers wrapper for quantized model inferencin
 
 ## Usage
 
-See [instructions](#instructions) to get the backend up and running. Then, use the [lLeapfrogAI API server](https://github.com/defenseunicorns/leapfrogai-api) to interact with the backend.
+See [instructions](#instructions) to get the backend up and running. Then, use the [LeapfrogAI API server](https://github.com/defenseunicorns/leapfrogai-api) to interact with the backend.
 
 ## Instructions
 
