@@ -5,6 +5,13 @@ metadata:
   description: >
     ctransformers model
 
+variables:
+  - name: GPU_ENABLED
+    description: Optionally turn on GPU inferencing for environments with capable CUDA devices
+    default: false
+    prompt: true
+    sensitive: false
+
 constants:
   - name: IMAGE_VERSION
     value: "###ZARF_PKG_TMPL_IMAGE_VERSION###"
