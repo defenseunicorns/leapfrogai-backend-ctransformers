@@ -24,7 +24,7 @@ requirements-dev:
 	python -m pip install -r requirements-dev.txt
 
 requirements-gpu:
-	CMAKE_ARGS="-DLLAMA_CUBLAS=on" python -m pip install -r requirements-gpu.txt
+	python -m pip install -r requirements-gpu.txt
 	
 requirements:
 	pip-sync requirements.txt requirements-dev.txt
@@ -42,7 +42,7 @@ test:
 	pytest **/*.py
 
 dev:
-	leapfrogai main.Model
+	python main.py
 
 docker-build:
 	if ! [ -f config.yaml ]; then cp config.example.yaml config.yaml; fi
