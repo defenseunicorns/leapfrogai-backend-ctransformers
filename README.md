@@ -10,12 +10,11 @@ See [instructions](#instructions) to get the backend up and running. Then, use t
 
 ## Instructions
 
-The instructions in this section assume the following: 
+The instructions in this section assume the following:
 
 1. Properly installed and configured Python 3.11.x, to include its development tools
 2. Installed `wget`
 3. The LeapfrogAI API server is deployed and running
-4. The `config.yaml` is created based on the `config-example.yaml`
 
 ### Local Development
 
@@ -59,7 +58,7 @@ docker run -p 50051:50051 -v ./config.yaml:/leapfrogai/config.yaml ghcr.io/defen
 
 ### GPU Inferencing
 
-The instructions in this section assume the following: 
+The instructions in this section assume the following:
 
 1. You have properly installed one or more NVIDIA GPUs and GPU drivers
 2. You have properly installed and configured the [cuda-toolkit](https://developer.nvidia.com/cuda-toolkit) and [nvidia-container-toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/index.html)
@@ -93,7 +92,7 @@ For local image building and running.
 docker build -f Dockerfile.gpu -t ghcr.io/defenseunicorns/leapfrogai/ctransformers:latest-gpu .
 
 # Run GPU docker container with GPU resource reservation
-docker run --gpus all -p 50051:50051 -v ./config.yaml:/leapfrogai/config.yaml ghcr.io/defenseunicorns/leapfrogai/ctransformers:latest-gpu
+docker run --gpus all -p 50051:50051 ghcr.io/defenseunicorns/leapfrogai/ctransformers:latest-gpu
 ```
 
 For pulling a tagged image from the main release repository.
@@ -102,5 +101,5 @@ Where `<IMAGE_TAG>` is the released packages found [here](https://github.com/org
 
 ```bash
 # Download and run remote GPU image
-docker run -p 50051:50051 -v ./config.yaml:/leapfrogai/config.yaml ghcr.io/defenseunicorns/leapfrogai/ctransformers:<IMAGE_TAG>
+docker run -p 50051:50051 ghcr.io/defenseunicorns/leapfrogai/ctransformers:<IMAGE_TAG>
 ```

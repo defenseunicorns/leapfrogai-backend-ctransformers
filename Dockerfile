@@ -26,5 +26,5 @@ COPY main.py .
 
 EXPOSE 50051:50051
 
-ENTRYPOINT ["/home/nonroot/.local/bin/leapfrogai", "--app-dir=.", "main:Model"]
+ENTRYPOINT ["python", "-u", "main.py"]
 
