@@ -6,7 +6,7 @@ description = "ctransformers based backend for LeapfrogAI"
 authors = [{ name = "LeapfrogAI Authors", email = "ai@defenseunicorns.com" }]
 license = { file = "LICENSE" }
 readme = "README.md"
-requires-python = ">=3.11.4"
+requires-python = ">=3.11.4, <3.12"
 dependencies = ["leapfrogai == 0.4.0", "ctransformers == 0.2.27"]
 
 [project.optional-dependencies]
