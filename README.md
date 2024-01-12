@@ -4,56 +4,102 @@
 
 A LeapfrogAI API-compatible CTransformers wrapper for quantized model inferencing.
 
+## Usage
+
+See [instructions](#instructions) to get the backend up and running. Then, use the [LeapfrogAI API server](https://github.com/defenseunicorns/leapfrogai-api) to interact with the backend.
+
 ## Instructions
 
-### Run Locally
+The instructions in this section assume the following:
+
+1. Properly installed and configured Python 3.11.x, to include its development tools
+2. Installed `wget`
+3. The LeapfrogAI API server is deployed and running
+
+### Local Development
 
 For cloning a model locally and running the development backend.
 
-#### Run Python Backend Locally
-
 ```bash
 # Clone Model
-mkdir .model/
-wget https://huggingface.co/TheBloke/Synthia-7B-v2.0-GGUF/resolve/main/synthia-7b-v2.0.Q4_K_M.gguf
-mv synthia-7b-v2.0.Q4_K_M.gguf .model/synthia-7b-v2.0.Q4_K_M.gguf
+make fetch-model
 
 # Setup Python Virtual Environment
-python -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements-dev.txt
+make create-venv
+make activate-venv
+make requirements-dev
 
 # Start Model Backend
-python main.py
+make dev
 ```
 
-### Docker Run
+### Docker Container
 
-#### Local Image Build and Run
+#### Image Build and Run
 
 For local image building and running.
 
 ```bash
-docker build -t ghcr.io/defenseunicorns/leapfrogai/ctransformers:latest .
-docker run -p 50051:50051 ghcr.io/defenseunicorns/leapfrogai/ctransformers:latest
-```
+# Build the docker image
+docker build -t ghcr.io/defenseunicorns/leapfrogai/ctransformers:latest-cpu .
 
-#### Remote Image Build and Run
+# Run the docker container
+docker run -p 50051:50051 -v ./config.yaml:/leapfrogai/config.yaml ghcr.io/defenseunicorns/leapfrogai/ctransformers:latest-cpu
+```
 
 For pulling a tagged image from the main release repository.
 
 Where `<IMAGE_TAG>` is the released packages found [here](https://github.com/orgs/defenseunicorns/packages/container/package/leapfrogai%2Fctransformers).
 
 ```bash
-docker build -t ghcr.io/defenseunicorns/leapfrogai/ctransformers:<IMAGE_TAG> .
-docker run -p 50051:50051 ghcr.io/defenseunicorns/leapfrogai/ctransformers:<IMAGE_TAG>
+# Download and run remote image
+docker run -p 50051:50051 -v ./config.yaml:/leapfrogai/config.yaml ghcr.io/defenseunicorns/leapfrogai/ctransformers:<IMAGE_TAG>
 ```
 
-### Docker Build and Push
+### GPU Inferencing
 
-This is for pushing a new image tag to the repository. Beforehand, ensure you run a `git tag <IMAGE_TAG>`.
+The instructions in this section assume the following:
+
+1. You have properly installed one or more NVIDIA GPUs and GPU drivers
+2. You have properly installed and configured the [cuda-toolkit](https://developer.nvidia.com/cuda-toolkit) and [nvidia-container-toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/index.html)
+
+#### Run Locally
+
+For cloning a model locally and running the development backend.
 
 ```bash
-make docker-build
-make docker-push
+# Clone Model
+make fetch-model
+
+# Setup Python Virtual Environment
+make create-venv
+make activate-venv
+make requirements-gpu
+
+# enable GPU switch
+export GPU_ENABLED=true
+
+# Start Model Backend
+make dev
+```
+
+#### Run in Docker
+
+For local image building and running.
+
+```bash
+# Build GPU docker image
+docker build -f Dockerfile.gpu -t ghcr.io/defenseunicorns/leapfrogai/ctransformers:latest-gpu .
+
+# Run GPU docker container with GPU resource reservation
+docker run --gpus all -p 50051:50051 ghcr.io/defenseunicorns/leapfrogai/ctransformers:latest-gpu
+```
+
+For pulling a tagged image from the main release repository.
+
+Where `<IMAGE_TAG>` is the released packages found [here](https://github.com/orgs/defenseunicorns/packages/container/package/leapfrogai%2Fctransformers).
+
+```bash
+# Download and run remote GPU image
+docker run -p 50051:50051 ghcr.io/defenseunicorns/leapfrogai/ctransformers:<IMAGE_TAG>
 ```

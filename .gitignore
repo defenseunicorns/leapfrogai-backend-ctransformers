@@ -1,3 +1,6 @@
+# Configuration
+config.yaml
+
 # Zarf packages
 zarf*.tar.zst
 zarf-sbom/

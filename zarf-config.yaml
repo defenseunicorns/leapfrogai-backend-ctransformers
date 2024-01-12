@@ -8,11 +8,11 @@ package:
   deploy:
     set:
       limits_cpu: 1
-      limits_memory: 4Gi
-      limits_gpu: 0
+      limits_memory: 20Gi
+      limits_gpu: 1
       requests_cpu: 1
       requests_memory: 4Gi
-      requests_gpu: 0
+      requests_gpu: 1
       name: ctransformers
       image_repository: "ghcr.io/defenseunicorns/leapfrogai/ctransformers"
       image_version: 0.3.0
